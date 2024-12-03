@@ -38,6 +38,8 @@ const task21 = (inputString) => {
     }).reduce((acc, cur) => acc + cur, 0)
 }
 
+//console.log(task21(readInput(2)));
+
 const task22 = (inputString) => {
     return inputString.split('\n').map(line => {
         const maxValues = { red: 0, blue: 0, green: 0 };
@@ -55,7 +57,7 @@ const task22 = (inputString) => {
 const task3 = (inputString) => {
     const checkNumberValid = () => {
         for (let i = -1; i <= 1; i++) {
-            for (let j = i * 141 + pos; j >= i * 141 + pos - stack.length - 1; j--) {
+            for (let j = i * lineLength + pos; j >= i * lineLength + pos - stack.length - 1; j--) {
                 if (inputString.split('')[j] && !/^[0-9.\n]$/.test(inputString.split('')[j])){
                     return true;
                 }
@@ -68,6 +70,7 @@ const task3 = (inputString) => {
     let pos = 0
     let state = 'searching'
     let stack = []
+    const lineLength = inputString.split('\n')[0].length + 1 // length + \n-Character
 
     inputString.split('').forEach(c => {
         if (state === 'searching') {
@@ -79,7 +82,6 @@ const task3 = (inputString) => {
             if (c === '.' || c === '\n') {
                 if (checkNumberValid()) {
                     sum += parseInt(stack.join(''));
-                    console.log(parseInt(stack.join('')))
                 }
                 stack = []
                 state = 'searching';
